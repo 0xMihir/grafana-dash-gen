@@ -18,10 +18,8 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
-var _ = require('underscore');
-var util = require('util');
+import _ from 'underscore'
+import util from 'util'
 
 function Target() {
     if (arguments.length === 0) {
@@ -209,4 +207,4 @@ Target.prototype.hide = function hide() {
     return this;
 };
 
-module.exports = Target;
+export default Target;

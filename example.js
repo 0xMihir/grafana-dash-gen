@@ -1,6 +1,5 @@
-'use strict';
+import grafana from './index.js'
 
-var grafana = require('./index');
 var Row = grafana.Row;
 var Dashboard = grafana.Dashboard;
 var Panels = grafana.Panels;
@@ -16,12 +15,11 @@ var Condition = grafana.Condition;
 // has its own backend. Because of this, the URL for grafana v2 should look
 // something like this:
 //
-//   https://your.grafanahost.com/grafana2/api/dashboards/db/
+//   https://your.grafanahost.com/api/dashboards/db
 
 grafana.configure({
-    url: 'https://your.grafanahost.com/grafana2/api/dashboards/db/',
-    cookie: 'auth-openid=REPLACETOKENIFAPPLICABLE',
-    headers: {'x': 'y'}
+    url: 'http://localhost:3000/api/dashboards/db',
+    headers: {'Authorization': `Bearer ${process.env.GRAFANA_TOKEN}`}
 });
 
 // Dashboard Constants
@@ -160,10 +158,4 @@ function generateDashboard() {
     grafana.publish(dashboard);
 }
 
-module.exports = {
-    generate: generateDashboard
-};
-
-if (require.main === module) {
-    generateDashboard();
-}
+generateDashboard();

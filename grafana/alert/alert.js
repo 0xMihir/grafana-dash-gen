@@ -46,4 +46,4 @@ Alert.prototype.generate = function generate() {
   return this.state;
 };
 
-module.exports = Alert;
+export default Alert;

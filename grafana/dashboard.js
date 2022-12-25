@@ -18,11 +18,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
 
-var Templates = require('./templates');
-var Annotations = require('./annotations');
-var ExternalLink = require('./external-link')
+import Templates from './templates/index.js';
+import Annotations from './annotations/index.js';
+import ExternalLink from './external-link.js';
+
 
 function Dashboard(opts) {
     opts = opts || {};
@@ -129,4 +129,4 @@ Dashboard.prototype.generate = function generate() {
     return this.state;
 };
 
-module.exports = Dashboard;
+export default Dashboard;

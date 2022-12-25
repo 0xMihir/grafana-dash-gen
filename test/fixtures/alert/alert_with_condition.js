@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   name: 'Panel Title alert',
   conditions: [{
     type: 'query',

@@ -18,8 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-module.exports = {
+export default {
   id: null,
   title: 'custom title',
   originalTitle: 'Generated Dashboard',

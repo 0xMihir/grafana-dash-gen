@@ -18,9 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
-var errors = require('../errors');
+import errors from '../errors.js'
 
 function Graphite(opts) {
     opts = opts || {};
@@ -62,4 +60,4 @@ Graphite.prototype.generate = function generate() {
     return this.state;
 };
 
-module.exports = Graphite;
+export default Graphite;

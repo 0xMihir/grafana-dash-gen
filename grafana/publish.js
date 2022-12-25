@@ -18,10 +18,9 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-"use strict";
-const request = require("request-promise-native");
-const config = require("./config");
-const errors = require("./errors");
+import request from 'request-promise-native';
+import config from './config.js';
+import errors from './errors.js';
 
 /* eslint-disable max-statements, max-len, no-console, no-undef */
 function publish(dashboard, opts) {
@@ -98,4 +97,4 @@ function publish(dashboard, opts) {
 }
 /* eslint-enable */
 
-module.exports = publish;
+export default publish;

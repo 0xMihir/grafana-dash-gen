@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+
 
 /**
  * Provide a query to populate template variable.
@@ -95,4 +95,4 @@ Query.prototype.generate = function generate() {
     return this.state;
 };
 
-module.exports = Query;
+export default Query;

@@ -18,13 +18,13 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-var xtend = require('xtend');
+
+import xtend from "xtend";
 
 /**
  * `user` - Auth user, defaults to "guest"
  * `group` - Auth group, defaults to "guest"
- * `url` - Full URL to grafana's elasticsearch endpoint
+ * `url` - Full URL to grafana's database endpoint
  * `cookie` - Key/value pair for auth, defaults to"auth-openid="
  * `headers` - Map of header keys/values, defaults to no headers
  */
@@ -44,7 +44,7 @@ function getConfig() {
     return configurations;
 }
 
-module.exports = {
-    configure: configure,
-    getConfig: getConfig
+export default {
+    configure,
+    getConfig
 };

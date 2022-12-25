@@ -18,9 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
-var generateGraphId = require('../id');
+import generateGraphId from '../id.js';
 
 function SingleStat(opts) {
     opts = opts || {};
@@ -103,4 +101,4 @@ SingleStat.prototype.addTarget = function addTarget(target) {
     });
 };
 
-module.exports = SingleStat;
+export default SingleStat;

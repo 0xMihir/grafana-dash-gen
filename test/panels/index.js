@@ -17,9 +17,18 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+import graph from './graph.js'
+import singlestat from './singlestat.js'
+import text from './text.js'
+import table from './table.js'
+import dashboardList from './dashboard_list.js'
 
-require('./graph');
-require('./singlestat');
-require('./text');
-require('./table');
-require('./dashboard_list');
+
+export default function() {
+    graph();
+    singlestat();
+    text();
+    table();
+    dashboardList();
+}
+

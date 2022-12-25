@@ -18,61 +18,61 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import test from 'tape';
+import Text from '../../grafana/panels/text.js';
 
-var test = require('tape');
-var Text = require('../../grafana/panels/text');
+import simpleText from '../fixtures/panels/simple_text.js';
+import overrideText from '../fixtures/panels/override_text.js';
 
-var simpleText = require('../fixtures/panels/simple_text.js');
-var overrideText = require('../fixtures/panels/override_text.js');
-
-test('simple Text panel', function t(assert) {
-    var graph = new Text();
-    graph.state.id = overrideText.id;
-
-    assert.deepEqual(graph.generate(), simpleText);
-    assert.end();
-});
-
-test('Text panel with overriden information', function t(assert) {
-    var graph = new Text({
-        span: 4,
-        content: 'TEST',
-        height: '100px',
-        transparent: true
+export default function() {
+    test('simple Text panel', function t(assert) {
+        var graph = new Text();
+        graph.state.id = overrideText.id;
+    
+        assert.deepEqual(graph.generate(), simpleText);
+        assert.end();
     });
-    graph.state.id = overrideText.id;
-
-    assert.deepEqual(graph.generate(), overrideText);
-    assert.end();
-});
-
-test('Text can set title', function t(assert) {
-    var title = 'title';
-    var graph = new Text();
-    graph.setTitle(title);
-    assert.deepEqual(graph.state.title, title);
-    assert.end();
-});
-
-test('add graph to row and dashboard when passed', function t(assert){
-    var calledAddPanel = 0;
-    var calledAddRow = 0;
-
-    new Text({
-        row: {
-            addPanel: function addPanel() {
-                calledAddPanel += 1;
-            }
-        },
-        dashboard: {
-            addRow: function addRow() {
-                calledAddRow += 1;
-            }
-        }
+    
+    test('Text panel with overriden information', function t(assert) {
+        var graph = new Text({
+            span: 4,
+            content: 'TEST',
+            height: '100px',
+            transparent: true
+        });
+        graph.state.id = overrideText.id;
+    
+        assert.deepEqual(graph.generate(), overrideText);
+        assert.end();
     });
-
-    assert.deepEqual(calledAddRow, 1);
-    assert.deepEqual(calledAddPanel, 1);
-    assert.end();
-});
+    
+    test('Text can set title', function t(assert) {
+        var title = 'title';
+        var graph = new Text();
+        graph.setTitle(title);
+        assert.deepEqual(graph.state.title, title);
+        assert.end();
+    });
+    
+    test('add graph to row and dashboard when passed', function t(assert){
+        var calledAddPanel = 0;
+        var calledAddRow = 0;
+    
+        new Text({
+            row: {
+                addPanel: function addPanel() {
+                    calledAddPanel += 1;
+                }
+            },
+            dashboard: {
+                addRow: function addRow() {
+                    calledAddRow += 1;
+                }
+            }
+        });
+    
+        assert.deepEqual(calledAddRow, 1);
+        assert.deepEqual(calledAddPanel, 1);
+        assert.end();
+    });
+}    

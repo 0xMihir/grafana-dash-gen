@@ -18,61 +18,61 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import test from 'tape';
+import DashboardList from '../../grafana/panels/dashboard_list.js';
 
-var test = require('tape');
-var DashboardList = require('../../grafana/panels/dashboard_list');
+import dashboardList from '../fixtures/panels/simple_dashboard_list.js';
+import overrideDashboardList from '../fixtures/panels/override_dashboard_list.js';
 
-var dashboardList = require('../fixtures/panels/simple_dashboard_list.js');
-var overrideDashboardList = require('../fixtures/panels/override_dashboard_list.js');
+export default function () {
+    test('simple DashboardList panel', function t(assert) {
+        var graph = new DashboardList();
+        graph.state.id = dashboardList.id;
 
-test('simple DashboardList panel', function t(assert) {
-    var graph = new DashboardList();
-    graph.state.id = dashboardList.id;
-
-    assert.deepEqual(graph.generate(), dashboardList);
-    assert.end();
-});
-
-test('DashboardList panel with overriden information', function t(assert) {
-    var graph = new DashboardList({
-        span: 3,
-        title: 'dashboard list',
-        mode: 'search'
-    });
-    graph.state.id = overrideDashboardList.id;
-
-    assert.deepEqual(graph.generate(), overrideDashboardList);
-    assert.end();
-});
-
-test('DashboardList can set title', function t(assert) {
-    var title = 'title';
-    var graph = new DashboardList();
-    graph.setTitle(title);
-    assert.deepEqual(graph.state.title, title);
-    assert.end();
-});
-
-test('add graph to row and dashboard when passed', function t(assert){
-    var calledAddPanel = 0;
-    var calledAddRow = 0;
-
-    new DashboardList({
-        row: {
-            addPanel: function addPanel() {
-                calledAddPanel += 1;
-            }
-        },
-
-        dashboard: {
-            addRow: function addRow() {
-                calledAddRow += 1;
-            }
-        }
+        assert.deepEqual(graph.generate(), dashboardList);
+        assert.end();
     });
 
-    assert.deepEqual(calledAddRow, 1);
-    assert.deepEqual(calledAddPanel, 1);
-    assert.end();
-});
+    test('DashboardList panel with overriden information', function t(assert) {
+        var graph = new DashboardList({
+            span: 3,
+            title: 'dashboard list',
+            mode: 'search'
+        });
+        graph.state.id = overrideDashboardList.id;
+
+        assert.deepEqual(graph.generate(), overrideDashboardList);
+        assert.end();
+    });
+
+    test('DashboardList can set title', function t(assert) {
+        var title = 'title';
+        var graph = new DashboardList();
+        graph.setTitle(title);
+        assert.deepEqual(graph.state.title, title);
+        assert.end();
+    });
+
+    test('add graph to row and dashboard when passed', function t(assert) {
+        var calledAddPanel = 0;
+        var calledAddRow = 0;
+
+        new DashboardList({
+            row: {
+                addPanel: function addPanel() {
+                    calledAddPanel += 1;
+                }
+            },
+
+            dashboard: {
+                addRow: function addRow() {
+                    calledAddRow += 1;
+                }
+            }
+        });
+
+        assert.deepEqual(calledAddRow, 1);
+        assert.deepEqual(calledAddPanel, 1);
+        assert.end();
+    });
+}

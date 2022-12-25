@@ -18,7 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-module.exports = {
+export default {
   title: 'Uber Home Page',
   tooltip: "",
   url: "www.uber.com",

@@ -18,9 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
-var generateGraphId = require('../id');
+import generateGraphId from '../id.js';
 
 function DashboardList(opts) {
     opts = opts || {};
@@ -61,4 +59,4 @@ DashboardList.prototype.generate = function generate() {
     return this.state;
 };
 
-module.exports = DashboardList;
+export default DashboardList;

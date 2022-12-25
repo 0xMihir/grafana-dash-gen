@@ -18,15 +18,24 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import annotations from './annotations/index.js'
+import config from './config.js'
+import dashboard from './dashboard.js';
+import externalLink from './external-link.js';
+import panels from './panels/index.js';
+import publish from './publish.js';
+import row from './row.js';
+import target from './target.js'
+import templates from './templates/index.js';
+import alert from './alert/index.js';
 
-require('./annotations');
-require('./config');
-require('./dashboard');
-require('./external-link')
-require('./panels');
-require('./publish');
-require('./row');
-require('./target');
-require('./templates');
-require('./alert');
+annotations();
+config();
+dashboard();
+externalLink();
+panels();
+publish();
+row();
+target();
+templates();
+alert();

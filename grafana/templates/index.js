@@ -18,12 +18,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
 
-var Custom = require('./custom');
-var Query = require('./query');
+import Custom from './custom.js'
+import Query from './query.js'
 
-module.exports = {
-    Custom: Custom,
-    Query: Query
-};
+export default {
+    Custom,
+    Query
+}

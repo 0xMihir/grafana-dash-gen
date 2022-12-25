@@ -1,9 +1,7 @@
-'use strict';
+import Alert from './alert.js';
+import Condition from './condition.js';
 
-var Alert = require('./alert');
-var Condition = require('./condition');
-
-module.exports = {
-  Alert: Alert,
-  Condition: Condition,
+export default {
+  Alert,
+  Condition,
 };

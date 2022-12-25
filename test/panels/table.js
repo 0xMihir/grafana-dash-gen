@@ -18,69 +18,69 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
 
-/* eslint-disable no-new */
-var test = require('tape');
-var Table = require('../../grafana/panels/table');
+import test from 'tape';
+import Table from '../../grafana/panels/table.js';
 
-var simpleTable = require('../fixtures/panels/simple_table.js');
-var overrideTable = require('../fixtures/panels/override_table.js');
+import simpleTable from '../fixtures/panels/simple_table.js';
+import overrideTable from '../fixtures/panels/override_table.js';
 
-test('simple table', function t(assert) {
-    var table = new Table();
-    table.state.id = simpleTable.id;
-    assert.deepEqual(table.generate(), simpleTable);
-    assert.end();
-});
-
-test('table with overriden information', function t(assert) {
-    var table = new Table({
-        span: 4,
-        title: 'custom title',
-        targets: ['target'],
-        datasource: 'M3',
-        arbitraryProperty: 'foo'
+export default function() {
+    test('simple table', function t(assert) {
+        var table = new Table();
+        table.state.id = simpleTable.id;
+        assert.deepEqual(table.generate(), simpleTable);
+        assert.end();
     });
-    table.state.id = overrideTable.id;
-
-    assert.deepEqual(table.generate(), overrideTable);
-    assert.end();
-});
-
-test('add graph to row and dashboard when passed', function t(assert) {
-    var calledAddPanel = 0;
-    var calledAddRow = 0;
-
-    new Table({
-        row: {
-            addPanel: function addPanel() {
-                calledAddPanel += 1;
+    
+    test('table with overriden information', function t(assert) {
+        var table = new Table({
+            span: 4,
+            title: 'custom title',
+            targets: ['target'],
+            datasource: 'M3',
+            arbitraryProperty: 'foo'
+        });
+        table.state.id = overrideTable.id;
+    
+        assert.deepEqual(table.generate(), overrideTable);
+        assert.end();
+    });
+    
+    test('add graph to row and dashboard when passed', function t(assert) {
+        var calledAddPanel = 0;
+        var calledAddRow = 0;
+    
+        new Table({
+            row: {
+                addPanel: function addPanel() {
+                    calledAddPanel += 1;
+                }
+            },
+    
+            dashboard: {
+                addRow: function addRow() {
+                    calledAddRow += 1;
+                }
             }
-        },
-
-        dashboard: {
-            addRow: function addRow() {
-                calledAddRow += 1;
-            }
-        }
+        });
+    
+        assert.deepEqual(calledAddRow, 1);
+        assert.deepEqual(calledAddPanel, 1);
+        assert.end();
     });
-
-    assert.deepEqual(calledAddRow, 1);
-    assert.deepEqual(calledAddPanel, 1);
-    assert.end();
-});
-
-test('table with overriden info and title', function t(assert) {
-    var table = new Table({
-        span: 4,
-        targets: ['target'],
-        datasource: 'M3',
-        arbitraryProperty: 'foo'
+    
+    test('table with overriden info and title', function t(assert) {
+        var table = new Table({
+            span: 4,
+            targets: ['target'],
+            datasource: 'M3',
+            arbitraryProperty: 'foo'
+        });
+        table.state.id = overrideTable.id;
+        table.setTitle('custom title');
+    
+        assert.deepEqual(table.generate(), overrideTable);
+        assert.end();
     });
-    table.state.id = overrideTable.id;
-    table.setTitle('custom title');
-
-    assert.deepEqual(table.generate(), overrideTable);
-    assert.end();
-});
+}

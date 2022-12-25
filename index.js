@@ -18,32 +18,32 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import Dashboard from './grafana/dashboard.js';
+import Row from './grafana/row.js';
+import ExternalLink from './grafana/external-link.js'
+import Target from './grafana/target.js';
+import Panels from './grafana/panels/index.js';
+import Alert from './grafana/alert/alert.js';
+import Condition from './grafana/alert/condition.js';
+import Templates from './grafana/templates/index.js';
+import publish from './grafana/publish.js';
+import generateGraphId from './grafana/id.js';
+import config from './grafana/config.js'
+import Annotations from './grafana/annotations/index.js';
 
-var Dashboard = require('./grafana/dashboard');
-var Row = require('./grafana/row');
-var ExternalLink = require('./grafana/external-link')
-var Target = require('./grafana/target');
-var Panels = require('./grafana/panels');
-var Alert = require('./grafana/alert/alert');
-var Condition = require('./grafana/alert/condition');
-var Templates = require('./grafana/templates');
-var publish = require('./grafana/publish');
-var generateGraphId = require('./grafana/id');
-var config = require('./grafana/config');
-var Annotations = require('./grafana/annotations');
+const configure = config.configure;
 
-module.exports = {
-    Dashboard: Dashboard,
-    Row: Row,
-    ExternalLink: ExternalLink,
-    Panels: Panels,
-    Templates: Templates,
+export default {
+    Dashboard,
+    Row,
+    ExternalLink,
+    Panels,
+    Templates,
     Alert,
     Condition,
-    Annotations: Annotations,
-    Target: Target,
-    publish: publish,
-    generateGraphId: generateGraphId,
-    configure: config.configure
+    Annotations,
+    Target,
+    publish,
+    generateGraphId,
+    configure
 };

@@ -18,9 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
-const generateGraphId = require('../id');
+import generateGraphId from '../id.js';
 
 function Graph(opts) {
     opts = opts || {};
@@ -152,4 +150,4 @@ function handleRefTargets(target, targets) {
     return {}
 }
 
-module.exports = Graph;
+export default Graph;

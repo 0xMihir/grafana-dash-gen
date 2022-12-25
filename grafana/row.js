@@ -18,9 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
-var xtend = require('xtend');
+import xtend from "xtend";
 
 function Row(opts) {
     opts = opts || {};
@@ -59,4 +57,4 @@ Row.prototype.addPanel = function addPanel(panel) {
     this.panels.push(panel);
 };
 
-module.exports = Row;
+export default Row;

@@ -18,7 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
 
 // Used to provide unique if for
 // generated graphs
@@ -29,4 +28,4 @@ function generateGraphId() {
 	return graphId;
 }
 
-module.exports = generateGraphId;
+export default generateGraphId;

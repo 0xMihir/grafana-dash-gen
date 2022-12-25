@@ -1,7 +1,7 @@
-const Condition = require('../../../grafana/alert/condition');
-const Alert = require('../../../grafana/alert/alert');
+import Condition from '../../../grafana/alert/condition.js';
+import Alert from '../../../grafana/alert/alert.js';
 
-const getAlert = () => {
+export default () => {
   const condition = new Condition()
     .onQuery('B', '5m', 'now')
     .withReducer('min')
@@ -10,4 +10,4 @@ const getAlert = () => {
   return new Alert().addCondition(condition);
 };
 
-module.exports.getAlert = getAlert;
+

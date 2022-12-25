@@ -18,99 +18,99 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import test from 'tape';
+import Query from '../../grafana/templates/query.js';
 
-var test = require('tape');
-var Query = require('../../grafana/templates/query');
+import simpleQuery from '../fixtures/templates/simple_query.js';
+import overrideQuery from '../fixtures/templates/override_query.js';
 
-var simpleQuery = require('../fixtures/templates/simple_query');
-var overrideQuery = require('../fixtures/templates/override_query');
-
-test('Interval template has defaults', function t(assert) {
-    var template = new Query('servers.*', {
-        name: 'foo',
-        datasource: 'default'
-    });
-    assert.deepEqual(template.generate(), simpleQuery);
-    assert.end();
-});
-
-test('Query template requires query', function t(assert) {
-    assert.throws(function catchError() {
-        var template = new Query(null, {
+export default function () {
+    test('Interval template has defaults', function t(assert) {
+        var template = new Query('servers.*', {
             name: 'foo',
             datasource: 'default'
         });
-        template.state.refresh = true;
-        assert.fail();
-    }, Error);
-    assert.end();
-});
+        assert.deepEqual(template.generate(), simpleQuery);
+        assert.end();
+    });
 
-test('Query template options default to empty objects', function t(assert) {
-    assert.throws(function catchError() {
-        var template = new Query('servers.*');
-        template.state.refresh = true;
-        assert.fail();
-    }, Error);
-    assert.end();
-});
+    test('Query template requires query', function t(assert) {
+        assert.throws(function catchError() {
+            var template = new Query(null, {
+                name: 'foo',
+                datasource: 'default'
+            });
+            template.state.refresh = true;
+            assert.fail();
+        }, Error);
+        assert.end();
+    });
 
-test('Query template requires name', function t(assert) {
-    assert.throws(function catchTypeError() {
+    test('Query template options default to empty objects', function t(assert) {
+        assert.throws(function catchError() {
+            var template = new Query('servers.*');
+            template.state.refresh = true;
+            assert.fail();
+        }, Error);
+        assert.end();
+    });
+
+    test('Query template requires name', function t(assert) {
+        assert.throws(function catchTypeError() {
+            var template = new Query('servers.*', {
+                datasource: 'default'
+            });
+            template.state.refresh = true;
+            assert.fail();
+        }, Error);
+        assert.end();
+    });
+
+    test('Query template requires datasource', function t(assert) {
+        assert.throws(function catchTypeError() {
+            var template = new Query('servers.*', {
+                name: 'foo'
+            });
+            template.state.refresh = true;
+            assert.fail();
+        }, Error);
+        assert.end();
+    });
+
+    test('Query template creates state', function t(assert) {
         var template = new Query('servers.*', {
+            name: 'foo',
             datasource: 'default'
         });
-        template.state.refresh = true;
-        assert.fail();
-    }, Error);
-    assert.end();
-});
+        assert.deepEqual(template.generate(), simpleQuery);
+        assert.end();
+    });
 
-test('Query template requires datasource', function t(assert) {
-    assert.throws(function catchTypeError() {
+    test('Query template state cannot be mutated after init', function t(assert) {
         var template = new Query('servers.*', {
-            name: 'foo'
+            name: 'foo',
+            datasource: 'default'
         });
-        template.state.refresh = true;
-        assert.fail();
-    }, Error);
-    assert.end();
-});
+        assert.deepEqual(template.generate(), simpleQuery);
 
-test('Query template creates state', function t(assert) {
-    var template = new Query('servers.*', {
-        name: 'foo',
-        datasource: 'default'
+        assert.throws(function catchTypeError() {
+            template.state.refresh = true;
+        }, TypeError);
+
+        assert.end();
     });
-    assert.deepEqual(template.generate(), simpleQuery);
-    assert.end();
-});
 
-test('Query template state cannot be mutated after init', function t(assert) {
-    var template = new Query('servers.*', {
-        name: 'foo',
-        datasource: 'default'
+    test('Query template state overridden on init', function t(assert) {
+        var template = new Query('stats.*', {
+            name: 'template',
+            datasource: 'datasource',
+            includeAll: false,
+            allFormat: 'glob',
+            allValue: '*',
+            refresh: true,
+            multi: true
+        });
+        assert.deepEqual(template.generate(), overrideQuery);
+        assert.end();
     });
-    assert.deepEqual(template.generate(), simpleQuery);
-
-    assert.throws(function catchTypeError() {
-        template.state.refresh = true;
-    }, TypeError);
-
-    assert.end();
-});
-
-test('Query template state overridden on init', function t(assert) {
-    var template = new Query('stats.*', {
-        name: 'template',
-        datasource: 'datasource',
-        includeAll: false,
-        allFormat: 'glob',
-        allValue: '*',
-        refresh: true,
-        multi: true
-    });
-    assert.deepEqual(template.generate(), overrideQuery);
-    assert.end();
-});
+}

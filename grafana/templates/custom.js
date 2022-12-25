@@ -18,7 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
 
 const DEFAULT_VARIABLE_ALL = '$__all';
 
@@ -104,4 +103,4 @@ Custom.prototype.generate = function generate() {
     return this.state;
 };
 
-module.exports = Custom;
+export default Custom;

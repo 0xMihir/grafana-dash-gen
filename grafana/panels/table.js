@@ -18,9 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
-var generateGraphId = require('../id');
+import generateGraphId from '../id.js';
 
 function Table(opts) {
     opts = opts || {};
@@ -104,4 +102,5 @@ Table.prototype.addTarget = function addTarget(target) {
         hide: target.hide
     });
 };
-module.exports = Table;
+
+export default Table;

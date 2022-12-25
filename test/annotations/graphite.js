@@ -18,57 +18,57 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import test from 'tape';
+import Graphite from '../../grafana/annotations/graphite.js';
 
-/* eslint-disable no-new */
-var test = require('tape');
-var Graphite = require('../../grafana/annotations/graphite');
+import simpleGraphite from '../fixtures/annotations/simple_graphite.js';
+import overrideGraphite from '../fixtures/annotations/override_graphite.js';
 
-var simpleGraphite = require('../fixtures/annotations/simple_graphite');
-var overrideGraphite = require('../fixtures/annotations/override_graphite');
-
-test('Graphite annotation has requirements', function t(assert) {
-    assert.throws(function assertThrows() {
-        new Graphite();
-    }, /UnfulfilledRequirement/);
-    assert.end();
-});
-
-test('Graphite annotation requires name', function t(assert) {
-    assert.throws(function assertThrows() {
-        new Graphite({target: 'foo'});
-    }, /UnfulfilledRequirement/);
-    assert.end();
-});
-
-test('Graphite annotation requires target', function t(assert) {
-    assert.throws(function assertThrows() {
-        new Graphite({name: 'foo'});
-    }, /UnfulfilledRequirement/);
-    assert.end();
-});
-
-test('Graphite annotation generates state', function t(assert) {
-    var annotation = new Graphite({
-      name: 'name',
-      target: 'target'
+export default function() {
+    test('Graphite annotation has requirements', function t(assert) {
+        assert.throws(function assertThrows() {
+            new Graphite();
+        }, /UnfulfilledRequirement/);
+        assert.end();
     });
-    assert.deepEqual(annotation.generate(), simpleGraphite);
-    assert.end();
-});
-
-test('Graphite annotation state can be overridden', function t(assert) {
-    var annotation = new Graphite({
-      name: 'custom name',
-      datasource: 'custom datasource',
-      showLine: false,
-      iconColor: 'rgb(255, 0, 0)',
-      lineColor: 'rgb(0, 0, 255)',
-      iconSize: 5,
-      enable: false,
-      target: 'custom.target',
-      arbitraryProperty: 'foo'
+    
+    test('Graphite annotation requires name', function t(assert) {
+        assert.throws(function assertThrows() {
+            new Graphite({target: 'foo'});
+        }, /UnfulfilledRequirement/);
+        assert.end();
     });
-    assert.deepEqual(annotation.generate(), overrideGraphite);
-    assert.end();
-});
+    
+    test('Graphite annotation requires target', function t(assert) {
+        assert.throws(function assertThrows() {
+            new Graphite({name: 'foo'});
+        }, /UnfulfilledRequirement/);
+        assert.end();
+    });
+    
+    test('Graphite annotation generates state', function t(assert) {
+        var annotation = new Graphite({
+          name: 'name',
+          target: 'target'
+        });
+        assert.deepEqual(annotation.generate(), simpleGraphite);
+        assert.end();
+    });
+    
+    test('Graphite annotation state can be overridden', function t(assert) {
+        var annotation = new Graphite({
+          name: 'custom name',
+          datasource: 'custom datasource',
+          showLine: false,
+          iconColor: 'rgb(255, 0, 0)',
+          lineColor: 'rgb(0, 0, 255)',
+          iconSize: 5,
+          enable: false,
+          target: 'custom.target',
+          arbitraryProperty: 'foo'
+        });
+        assert.deepEqual(annotation.generate(), overrideGraphite);
+        assert.end();
+    });
+}
+

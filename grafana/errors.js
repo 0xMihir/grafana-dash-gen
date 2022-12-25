@@ -18,8 +18,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-var TypedError = require('error/typed');
+import TypedError from 'error/typed.js';
 
 var UnfulfilledRequirement = TypedError({
     type: 'grafana.errors.UnfulfilledRequirement',
@@ -44,8 +43,8 @@ var Misconfigured = TypedError({
     resolution: 'Must call grafana.configure before publishing'
 });
 
-module.exports = {
-    UnfulfilledRequirement: UnfulfilledRequirement,
-    InvalidState: InvalidState,
-    Misconfigured: Misconfigured
+export default {
+    UnfulfilledRequirement,
+    InvalidState,
+    Misconfigured
 };

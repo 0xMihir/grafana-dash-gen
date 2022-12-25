@@ -2,10 +2,11 @@
   "name": "grafana-dash-gen",
   "version": "3.3.5",
   "description": "A grafana dashboard generator",
-  "main": "index.js",
+  "exports": "./index.js",
+  "type": "module",
   "scripts": {
     "fast-test": "node ./test/index.js | tap-arc",
-    "test-cover": "nyc --reporter html --reporter cobertura --reporter text tape ./test/index.js",
+    "test-cover": "c8 --reporter html --reporter cobertura --reporter text tape ./test/index.js",
     "view-cover": "rm -rf ./coverage && npm run test-cover && open ./coverage/index.html",
     "test": "npm run fast-test && npm run test-cover"
   },
@@ -30,7 +31,7 @@
   "devDependencies": {
     "eslint": "^7.3.1",
     "nock": "^13.0.2",
-    "nyc": "^15.1.0",
+    "c8": "^7.12.0",
     "pre-commit": "^1.0.6",
     "tap-arc": "^0.3.5",
     "tape": "5.3.1"

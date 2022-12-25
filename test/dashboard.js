@@ -18,92 +18,91 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import test from 'tape';
+import Dashboard from '../grafana/dashboard.js';
+import ExternalLink from '../grafana/external-link.js';
+import Panels from '../grafana/panels/index.js';
 
-var test = require('tape');
-var Dashboard = require('../grafana/dashboard');
-var ExternalLink = require('../grafana/external-link')
-require('../grafana/panels'); // for coverage
+import simpleDashboard from './fixtures/simple_dashboard.js';
+import overrideDashboard from './fixtures/override_dashboard.js';
 
-var simpleDashboard = require('./fixtures/simple_dashboard');
-var overrideDashboard = require('./fixtures/override_dashboard');
-
-test('Simple Dashboard', function t(assert) {
+export default function () {
+  test('Simple Dashboard', function t(assert) {
     var dashboard = new Dashboard();
     dashboard.state.id = simpleDashboard.id;
     assert.deepEqual(dashboard.state, simpleDashboard);
     assert.end();
-});
+  });
 
-test('Dashboard with overriden information', function t(assert) {
+  test('Dashboard with overriden information', function t(assert) {
     var dashboard = new Dashboard({
-        title: 'custom title',
-        tags: ['foo', 'bar'],
-        templating: [{
-            name: 'myvar',
-            options: ['a', 'b']
-        }, {
-            name: 'smoothing',
-            options: ['30min', '10min', '5min', '2min', '1min']
-        }],
-        annotations: [{
-            name: 'Deploy Completed',
-            target: 'path.to.metric.with.annotation'
-        }],
-        refresh: '1m',
-        rows: [{
-            title: 'New row',
-            height: '250px',
-            editable: true,
-            collapse: false,
-            panels: []
-        }],
+      title: 'custom title',
+      tags: ['foo', 'bar'],
+      templating: [{
+        name: 'myvar',
+        options: ['a', 'b']
+      }, {
+        name: 'smoothing',
+        options: ['30min', '10min', '5min', '2min', '1min']
+      }],
+      annotations: [{
+        name: 'Deploy Completed',
+        target: 'path.to.metric.with.annotation'
+      }],
+      refresh: '1m',
+      rows: [{
+        title: 'New row',
+        height: '250px',
         editable: true,
+        collapse: false,
+        panels: []
+      }],
+      editable: true,
     });
     dashboard.state.id = overrideDashboard.id;
     assert.deepEqual(dashboard.state, overrideDashboard);
     assert.end();
-});
+  });
 
-test('Dashboard can add rows', function t(assert) {
+  test('Dashboard can add rows', function t(assert) {
     var dashboard = new Dashboard();
-    var row = {foo: 'foo'};
+    var row = { foo: 'foo' };
     dashboard.addRow(row);
     assert.deepEqual(dashboard.rows, [row]);
     assert.end();
-});
-
-test('Dashboard can add links', function t(assert) {
-  const externalLinks = [
-    new ExternalLink({
-      title: "Uber Homepage",
-      url: "www.uber.com",
-    })
-  ]
-  var dashboard = new Dashboard({
-    links: externalLinks
   });
-  assert.deepEqual(dashboard.links, externalLinks);
-  assert.end();
-})
 
-test('Dashboard can set time', function t(assert) {
+  test('Dashboard can add links', function t(assert) {
+    const externalLinks = [
+      new ExternalLink({
+        title: "Uber Homepage",
+        url: "www.uber.com",
+      })
+    ]
+    var dashboard = new Dashboard({
+      links: externalLinks
+    });
+    assert.deepEqual(dashboard.links, externalLinks);
+    assert.end();
+  })
+
+  test('Dashboard can set time', function t(assert) {
     var d = new Dashboard({
-        time: {
-            from: 'now-1h',
-            to: 'now'
-        }
+      time: {
+        from: 'now-1h',
+        to: 'now'
+      }
     });
 
     assert.deepEqual(d.generate().time, {
-        from: 'now-1h',
-        to: 'now'
+      from: 'now-1h',
+      to: 'now'
     });
     assert.end();
-});
+  });
 
-test('Dashboard can generate correct body', function t(assert) {
-    var rowData = {foo: 'foo'};
+  test('Dashboard can generate correct body', function t(assert) {
+    var rowData = { foo: 'foo' };
     var dashboard = new Dashboard({
       links: [
         new ExternalLink({
@@ -123,9 +122,9 @@ test('Dashboard can generate correct body', function t(assert) {
       ]
     });
     var row = {
-        generate: function generate() {
-            return rowData;
-        }
+      generate: function generate() {
+        return rowData;
+      }
     };
     dashboard.addRow(row);
     simpleDashboard.rows = [rowData];
@@ -159,4 +158,5 @@ test('Dashboard can generate correct body', function t(assert) {
     }
     assert.deepEqual(json, expectedJson);
     assert.end();
-});
+  });
+}

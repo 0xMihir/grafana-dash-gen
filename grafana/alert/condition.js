@@ -109,4 +109,4 @@ function Condition(opts) {
   }
 }
 
-module.exports = Condition;
+export default Condition;

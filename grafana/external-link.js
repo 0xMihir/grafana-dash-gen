@@ -18,8 +18,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-
 function ExternalLink(opts) {
   opts = opts || {};
 
@@ -63,4 +61,4 @@ ExternalLink.prototype.withIcon = function withIcon(iconName) {
   return this
 };
 
-module.exports = ExternalLink;
+export default ExternalLink;

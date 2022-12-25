@@ -18,17 +18,16 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
-var Graph = require('./graph');
-var SingleStat = require('./singlestat');
-var Text = require('./text');
-var Table = require('./table');
-var DashboardList = require('./dashboard_list');
+import Graph from './graph.js'
+import SingleStat from './singlestat.js'
+import Text from './text.js'
+import Table from './table.js'
+import DashboardList from './dashboard_list.js'
 
-module.exports = {
-	Graph: Graph,
-	SingleStat: SingleStat,
-	Text: Text,
-	Table: Table,
-	DashboardList: DashboardList
+export default {
+	Graph,
+	SingleStat,
+	Text,
+	Table,
+	DashboardList
 };

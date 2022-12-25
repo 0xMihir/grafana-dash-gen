@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   "name": "Panel Title alert",
   "for": "15m",
   "frequency": "5m",

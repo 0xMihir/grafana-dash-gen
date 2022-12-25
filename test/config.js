@@ -18,42 +18,42 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-'use strict';
+import test from 'tape';
+import config from '../grafana/config.js';
 
-var test = require('tape');
-var config = require('../grafana/config');
+export default function () {
+    test('config extends default configuration', function t(assert) {
+        var foo = 'foo';
+        var bar = 1;
+        var user = 'notguest';
+        var group = 'guest';
+        var url = 'http://myfakeurl.com';
+        var cookie = 'auth=value';
+        var headers = { 'asdf': 'qwer' };
 
-test('config extends default configuration', function t(assert) {
-    var foo = 'foo';
-    var bar = 1;
-    var user = 'notguest';
-    var group = 'guest';
-    var url = 'http://myfakeurl.com';
-    var cookie = 'auth=value';
-    var headers = {'asdf': 'qwer'};
+        var cfg = {
+            foo: foo,
+            bar: bar,
+            user: user,
+            url: url,
+            cookie: cookie,
+            headers: headers
+        };
 
-    var cfg = {
-        foo: foo,
-        bar: bar,
-        user: user,
-        url: url,
-        cookie: cookie,
-        headers: headers
-    };
+        var expected = {
+            foo: foo,
+            bar: bar,
+            user: user,
+            group: group,
+            url: url,
+            cookie: cookie,
+            headers: headers
+        };
 
-    var expected = {
-        foo: foo,
-        bar: bar,
-        user: user,
-        group: group,
-        url: url,
-        cookie: cookie,
-        headers: headers
-    };
+        config.configure(cfg);
+        var result = config.getConfig();
 
-    config.configure(cfg);
-    var result = config.getConfig();
-
-    assert.deepEqual(result, expected);
-    assert.end();
-});
+        assert.deepEqual(result, expected);
+        assert.end();
+    });
+}
